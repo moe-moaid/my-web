@@ -27,11 +27,18 @@ export default function SingleSkill({ directionLeft, content, percentage }: Prop
         dangerouslySetInnerHTML={{ __html:content }}
       >
       </motion.svg>
-      <div className="absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white w-24 h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 rounded-full z-0">
+      <motion.div
+        initial={{
+        x: directionLeft ? -150 : 150,
+        opacity: 0,
+      }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ duration: 1.5 }}
+        className="absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white w-24 h-24 md:w-28 md:h-28 xl:w-32 xl:h-32 rounded-full z-0">
         <div className="flex items-center justify-center h-full">
-          <p className="text-3xl font-bold text-black opacity-100">{ percentage }%</p>
+          <p className="text-3xl font-bold text-black opacity-0 group-hover:opacity-100 transition duration-300 eas-in-out">{ percentage }%</p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
