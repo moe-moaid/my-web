@@ -26,7 +26,6 @@ export default function RenderForms({ menueStatus }: Props) {
     let activeTab = menueStatus.find((item, id) => {
         return item.status === true;
     });
-    console.log(activeTab);
     
     return (
 

@@ -1,9 +1,9 @@
-import Hero from "./components/hero";
-import About from "./components/about";
-import Experience from "./components/experience";
-import Skills from "./components/skills";
-import Projects from "./components/projects";
-import ContactMe from "./components/contactMe";
+import Hero from "../components/hero";
+import About from "../components/about";
+import Experience from "../components/experience";
+import Skills from "../components/skills";
+import Projects from "../components/projects";
+import ContactMe from "../components/contactMe";
 import { ChevronDoubleUpIcon } from "@heroicons/react/24/solid";
 
 export default function Home() {
