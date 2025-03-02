@@ -37,15 +37,11 @@ export default function AdminPage({}: Props) {
       if (response.ok) {
         const responseData = await response.json();
         if (responseData.code === 200) {
-          console.log(responseData.json);
         } else {
-          console.log("There was an error");
         }
       } else {
-        console.log("Fetch failed");
       }
     } catch (err: any) {
-      console.log(`Error: ${err}`);
     }
   }
 
@@ -61,14 +57,11 @@ export default function AdminPage({}: Props) {
       }).then((data) => {
         data.json().then((response) => {
           if (response.code === 200) {
-            console.log(response.json);
           } else {
-            console.log("there was an error");
           }
         });
       });
     } catch (err: any) {
-      console.log(`error is ${err}`);
     }
   }
 

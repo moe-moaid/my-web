@@ -9,8 +9,6 @@ type Props = {
 };
 
 export default function SingleSkill({ directionLeft, content, percentage }: Props) {
-  console.log(directionLeft);
-  
   return (
     <div className="group relative flex cursor-pointer">
       <motion.svg

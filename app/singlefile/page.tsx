@@ -50,14 +50,11 @@ export default function Page({}: Props) {
       }).then((data) => {
         data.json().then((response) => {
           if (response.code === 200) {
-            console.log(response.json);
           } else {
-            console.log("there was an error");
           }
         });
       });
     } catch (err: any) {
-      console.log(`error is ${err}`);
     }
   }
   
