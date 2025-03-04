@@ -6,12 +6,12 @@ type Props = {};
 export default function AdminHeader({}: Props) {
   const [showCard, setShowCard] = useState<boolean>(false);
   return (
-    <header className="flex flex-row justify-between items-center p-2">
+    <header className="flex flex-col gap-y-4 md:gap-y-0 md:flex-row justify-between items-center p-2">
       <div className="">
         <p className="font-bold leading-[10px]">Moe</p>
         <p className="font-bold">Portfolio</p>
       </div>
-      <input className="bg-[#D9D9D9] w-1/3 px-4 py-1 rounded-full" type="text" placeholder="Search anything..." />
+      <input className="bg-[#D9D9D9] w-full sm:w-1/3 px-4 py-1 rounded-full outline-none text-[#3b82f6] font-medium tracking-wider" type="text" placeholder="Search anything..." />
       { showCard && <UserCard />}
       <button onClick={() => setShowCard(!showCard)}>
         <svg
