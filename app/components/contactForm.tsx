@@ -12,11 +12,12 @@ export default function ContactForm({}: Props) {
 
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
-      {/* add a link */}
+      {/* Add a link */}
       <form
         action=""
         className="rounded-3xl bg-white flex flex-col items-center p-4 gap-y-8 w-1/5 max-h-fit"
       >
+        <p className="text-center my-4 font-medium">Add a Contact Link on Social Media</p>
         <input
           className="border-b border-[#2EC4CE] stroke-none outline-none w-full"
           type="text"
@@ -44,10 +45,12 @@ export default function ContactForm({}: Props) {
           Add Social Media{" "}
         </button>
       </form>
+      {/* Edit existing links */}
       <form
         action=""
-        className="rounded-3xl bg-white flex flex-col items-center px-4 py-2"
+        className="rounded-3xl bg-white flex flex-col items-center px-4 py-2 max-h-fit"
       >
+        <p className="text-center my-4 font-medium">Edit your existing social media</p>
         <div className="flex flex-row gap-x-3 justify-start items-center bg-[#E4E4E4] p-2 rounded-md">
           <p className="border-e-2 border-white pe-3">Github</p>
           <p className="">https://www.github.com/example-profile</p>
@@ -67,11 +70,18 @@ export default function ContactForm({}: Props) {
           </button>
         </div>
         {
-          newSocial && newSocial.map((item) => (
-        <div key={ item.name } className="flex flex-row gap-x-3 mt-4 w-full justify-between items-center bg-[#E4E4E4] p-2 rounded-md">
+          newSocial && newSocial.map((item: SocialMedia, index: number) => (
+        <div key={` ${index} - ${item.name} - ${item.link}`} className="flex flex-row gap-x-3 mt-4 w-full justify-between items-center bg-[#E4E4E4] p-2 rounded-md">
               <p className="border-e-2 border-white pe-3">{ item.name }</p>
               <p className="">{ item.link }</p>
-          <button>
+              <button onClick={(e) => {
+                e.preventDefault();
+                console.log('button clicked');
+                setNewSocial((prev) => {
+                  return prev.filter((value) => (value.name !== item.name));
+                })
+              }
+              }>
             <svg
               width="15"
               height="16"
@@ -88,6 +98,7 @@ export default function ContactForm({}: Props) {
         </div>
           ))
         }
+        <button className="bg-[#2E8CFA] px-2 py-1 rounded-md mt-4 text-white font-medium">Commit All Changes</button>
       </form>
     </div>
   );
