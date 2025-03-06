@@ -15,9 +15,10 @@ export default function HeroForm({}: Props) {
         type="text"
         placeholder="Your Position"
       />
-      <div className="bg-[#E4E4E4] rounded-lg w-full flex flex-col items-center gap-y-4">
+      <div className="bg-[#E4E4E4] rounded-lg w-full flex flex-col items-center gap-y-4 py-4">
         <h1>Type-Animation Sentences</h1>
         <button
+        className="stroke-none outline-none"
           onClick={(e) => {
             e.preventDefault();
             setAddedAnime([...addedAnime, "New Sentence"]);
@@ -46,7 +47,7 @@ export default function HeroForm({}: Props) {
         </button>
         {addedAnime &&
           addedAnime.map((item: string, index: number) => (
-            <div className="flex flex-row justify-between items-center bg-white rounded-md">
+            <div className="flex flex-row justify-between items-center bg-white rounded-md px-2 py-1 ">
               <input
                 type="text"
                 placeholder={item}
