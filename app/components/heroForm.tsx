@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-type Props = {};
+type Animations = { id: string; name: string };
 
-export default function HeroForm({}: Props) {
-  const [addedAnime, setAddedAnime] = useState<string[]>([]);
+export default function HeroForm() {
+  const [addedAnime, setAddedAnime] = useState<Animations[]>([]);
   return (
     <form
       action=""
@@ -18,10 +18,13 @@ export default function HeroForm({}: Props) {
       <div className="bg-[#E4E4E4] rounded-lg w-full flex flex-col items-center gap-y-4 py-4">
         <h1>Type-Animation Sentences</h1>
         <button
-        className="stroke-none outline-none"
+          className="stroke-none outline-none"
           onClick={(e) => {
             e.preventDefault();
-            setAddedAnime([...addedAnime, "New Sentence"]);
+            setAddedAnime([
+              ...addedAnime,
+              { id: crypto.randomUUID(), name: "" },
+            ]);
           }}
         >
           <svg
@@ -46,26 +49,28 @@ export default function HeroForm({}: Props) {
           </svg>
         </button>
         {addedAnime &&
-          addedAnime.map((item: string, index: number) => (
+          addedAnime.map((item) => (
             <div className="flex flex-row justify-between items-center bg-white rounded-md px-2 py-1 ">
               <input
+                key={item.id}
                 type="text"
-                placeholder={item}
-                onChange={(e) => (item = e.target.value)}
+                placeholder={item.name}
+                className="outline-none"
+                value={item.name}
+                onChange={(e) => {
+                  setAddedAnime((prev) =>
+                    prev.map((el) =>
+                      (el.id === item.id ? { ...el, name: e.target.value } : el) 
+                    )
+                  );
+                }}
               />
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   setAddedAnime((prev) => {
-                    console.log('prev = ', prev);
-                    
-                    return prev.filter((x, i) => {
-                      console.log('prev[i]', prev[i]);
-                      console.log('item[index]', item[index]);
-                      x !== item
-                    });
-                })
-
+                    return prev.filter((el) => el.id !== item.id);
+                  });
                 }}
               >
                 <svg
