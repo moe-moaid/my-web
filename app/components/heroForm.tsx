@@ -4,6 +4,15 @@ type Animations = { id: string; name: string };
 
 export default function HeroForm() {
   const [addedAnime, setAddedAnime] = useState<Animations[]>([]);
+  const [image, setImage] = useState<string | null>(null);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => setImage(e.target?.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <form
       action=""
@@ -60,7 +69,7 @@ export default function HeroForm() {
                 onChange={(e) => {
                   setAddedAnime((prev) =>
                     prev.map((el) =>
-                      (el.id === item.id ? { ...el, name: e.target.value } : el) 
+                      el.id === item.id ? { ...el, name: e.target.value } : el
                     )
                   );
                 }}
@@ -89,10 +98,44 @@ export default function HeroForm() {
             </div>
           ))}
       </div>
-      <button className="bg-[#2E8CFA] font-medium text-white px-2 py-1">
+      <input
+        type="file"
+        accept="image/*"
+        id="fileInput"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+      <label
+        htmlFor="fileInput"
+        className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600"
+      >
         Upload Picture
-      </button>
-      <input type="file" />
+      </label>
+
+      {/* Image preview */}
+      <div className="w-20 h-20 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden">
+        {image ? (
+          <img
+            src={image}
+            alt="Preview"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <svg
+            width="103"
+            height="88"
+            viewBox="0 0 103 88"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M83.0563 10.1211H19.9438C14.9938 10.1211 10.9375 14.6383 10.9375 20.1508V67.8492C10.9375 73.3617 14.9938 77.8789 19.9438 77.8789H83.0563C88.0062 77.8789 92.0625 73.3617 92.0625 67.8492V20.1508C92.0625 14.6383 88.0062 10.1211 83.0563 10.1211ZM88.6937 66.7773C88.6937 71.8305 86.6656 74.0891 82.1281 74.0891H20.9062C16.3688 74.0891 14.3406 71.8305 14.3406 66.7773V21.1844C14.3406 16.1313 16.3688 13.8727 20.9062 13.8727H82.1281C86.6656 13.8727 88.6937 16.1313 88.6937 21.1844V66.7773ZM36.3063 36.4586L44.7625 44L66.7281 23.2898L83.6406 40.2484V68.5H19.3937V51.5414L36.3063 36.4586ZM26.1656 19.5383C22.4187 19.5383 19.3937 22.907 19.3937 27.0797C19.3937 31.2523 22.4187 34.6211 26.1656 34.6211C29.9125 34.6211 32.9375 31.2523 32.9375 27.0797C32.9375 22.907 29.8781 19.5383 26.1656 19.5383Z"
+              fill="black"
+              fill-opacity="0.23"
+            />
+          </svg>
+        )}
+      </div>
       <button className="w-full bg-[#2E8CFA] font-medium text-white py-1 rounded-lg">
         Update Information
       </button>
