@@ -42,7 +42,7 @@ export default function ContactForm({}: Props) {
           }
           disabled={!currentValue.name || !currentValue.link}
         >
-          Add Social Media{" "}
+          Add Social Media
         </button>
       </form>
       {/* Edit existing links */}
@@ -76,7 +76,6 @@ export default function ContactForm({}: Props) {
               <p className="">{ item.link }</p>
               <button onClick={(e) => {
                 e.preventDefault();
-                console.log('button clicked');
                 setNewSocial((prev) => {
                   return prev.filter((value) => (value.name !== item.name));
                 })
