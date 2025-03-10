@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -12,19 +12,37 @@ export default function ExperienceForm({}: Props) {
   const [isWorking, setIsWorking] = useState<boolean>(false);
   const [image, setImage] = useState<string | null>("");
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [companies, setCompanies] = useState<Skill[]>([]);
   const handleAddSkill = (e: MouseEvent) => {
     e.preventDefault();
     setSkills([...skills, { id: crypto.randomUUID(), name: "newSkill" }]);
   };
 
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const myForm = Object.fromEntries(formData.entries());
+    console.log("formData = ", myForm);
+
+    setCompanies([
+      ...companies,
+      { id: crypto.randomUUID(), name: myForm.company as string },
+    ]);
+  };
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
-      <form className="flex flex-col gap-y-8 bg-white py-[24px] px-8 rounded-3xl items-start w-1/3 mx-auto justify-center">
-        <Input placeHolder="Company Name" />
-        <Input placeHolder="Your Position" />
+      <form
+        className="flex flex-col gap-y-8 bg-white py-[24px] px-8 rounded-3xl items-start w-1/3 mx-auto justify-center"
+        onSubmit={handleSubmit}
+      >
+        <Input name="company" placeHolder="Company Name" />
+        <Input name="position" placeHolder="Your Position" />
         <div className="flex flex-row justify-between items-center w-full">
-          <input type="date" placeholder="Start Date" />
-          {!isWorking && <input type="date" placeholder="End Date" />}
+          <input name="startDate" type="date" placeholder="Start Date" />
+          {!isWorking && (
+            <input name="endDate" type="date" placeholder="End Date" />
+          )}
         </div>
         <div className="flex flex-row gap-x-2 items-center">
           <input
@@ -36,7 +54,7 @@ export default function ExperienceForm({}: Props) {
           />
           <label htmlFor="isWorking">Currently Working?</label>
         </div>
-        <Input placeHolder="Set of Technologies" />
+        <Input name="techStack" placeHolder="Set of Technologies" />
         <div className="bg-[#E4E4E4] flex flex-col gap-y-4 p-4 rounded-xl">
           <p>Add summery point about your trole in the company</p>
           {skills &&
@@ -46,6 +64,7 @@ export default function ExperienceForm({}: Props) {
                 className="flex flex-row justify-between w-full items-center bg-white rounded-md px-1 py-2"
               >
                 <input
+                  name="skills"
                   type="text"
                   placeholder={skill.name}
                   className="placeholder:text-black w-full outline-none"
@@ -145,7 +164,47 @@ export default function ExperienceForm({}: Props) {
             <img src={image} alt="Company Logo" />
           )}
         </div>
-        <Button type="primary" text="Update Information" fullWidth />
+        <Button
+          style_type="primary"
+          text="Update Information"
+          type="submit"
+          fullWidth
+        />
+      </form>
+
+      <form className="flex flex-col gap-y-8 bg-white py-[24px] px-8 rounded-3xl w-1/3 mx-auto justify-center items-center">
+        <p>Edit your Existing Experiences</p>
+        {companies &&
+          companies.map((company) => (
+            <div
+              key={company.id}
+              className="flex flex-row justify-between items-center w-full"
+            >
+              <Input value={company.name} />
+              {/* Delete Button */}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCompanies((prev) => {
+                    return prev.filter((item) => item.id !== company.id);
+                  });
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 0.5C3.82143 0.5 0.5 3.82143 0.5 8C0.5 12.1786 3.82143 15.5 8 15.5C12.1786 15.5 15.5 12.1786 15.5 8C15.5 3.82143 12.1786 0.5 8 0.5ZM10.8929 11.75L8 8.85714L5.10714 11.75L4.25 10.8929L7.14286 8L4.25 5.10714L5.10714 4.25L8 7.14286L10.8929 4.25L11.75 5.10714L8.85714 8L11.75 10.8929L10.8929 11.75Z"
+                    fill="#FC3434"
+                  />
+                </svg>
+              </button>
+            </div>
+          ))}
       </form>
     </div>
   );
