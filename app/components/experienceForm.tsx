@@ -7,12 +7,22 @@ type Skill = {
   id: string;
   name: string;
 };
+type Company = {
+  id: string;
+  company: string;
+  position: string;
+  startDate: string;
+  endDate?: string;
+  isWorking?: string;
+  techStack: string;
+  logo: any;
+};
 
 export default function ExperienceForm({}: Props) {
   const [isWorking, setIsWorking] = useState<boolean>(false);
   const [image, setImage] = useState<string | null>("");
   const [skills, setSkills] = useState<Skill[]>([]);
-  const [companies, setCompanies] = useState<Skill[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const handleAddSkill = (e: MouseEvent) => {
     e.preventDefault();
     setSkills([...skills, { id: crypto.randomUUID(), name: "newSkill" }]);
@@ -24,12 +34,23 @@ export default function ExperienceForm({}: Props) {
     const formData = new FormData(form);
     const myForm = Object.fromEntries(formData.entries());
     console.log("formData = ", myForm);
+    console.log("formData = ", typeof myForm.logo);
 
     setCompanies([
       ...companies,
-      { id: crypto.randomUUID(), name: myForm.company as string },
+      {
+        id: crypto.randomUUID(),
+        company: myForm.company as string,
+        position: myForm.position as string,
+        startDate: myForm.startDate as string,
+        endDate: myForm.endDate as string || undefined,
+        techStack: myForm.techStack as string,
+        logo: myForm.logo || null
+      },
     ]);
   };
+  console.log('formData = ', companies);
+  
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
       <form
@@ -180,7 +201,28 @@ export default function ExperienceForm({}: Props) {
               key={company.id}
               className="flex flex-row justify-between items-center w-full"
             >
-              <Input value={company.name} />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCompanies((prev) => {
+                    return prev.filter((item) => item.id !== company.id);
+                  });
+                }}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.292 13.36L6.815 18.116L0.5 20L2.292 13.36ZM12.705 2.41204L17.227 7.16704L7.266 17.64L2.743 12.886L12.705 2.41204ZM16.142 0.348037L19.118 3.47704C19.925 4.32504 19.204 5.09004 19.204 5.09004L17.683 6.69004L13.159 1.93304L14.68 0.334037L14.7 0.315037C14.819 0.203037 15.475 -0.352963 16.142 0.348037Z"
+                    fill="#2E8CFA"
+                  />
+                </svg>
+              </button>
+              <Input value={company.company} />
               {/* Delete Button */}
               <button
                 onClick={(e) => {
