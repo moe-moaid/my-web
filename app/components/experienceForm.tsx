@@ -15,7 +15,7 @@ type Company = {
   endDate?: string;
   isWorking?: string;
   techStack: string;
-  logo: any;
+  logo?: any;
 };
 
 export default function ExperienceForm({}: Props) {
@@ -23,6 +23,7 @@ export default function ExperienceForm({}: Props) {
   const [image, setImage] = useState<string | null>("");
   const [skills, setSkills] = useState<Skill[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [companyToEdit, setCompanyToEdit] = useState<Company>();
   const handleAddSkill = (e: MouseEvent) => {
     e.preventDefault();
     setSkills([...skills, { id: crypto.randomUUID(), name: "newSkill" }]);
@@ -32,7 +33,7 @@ export default function ExperienceForm({}: Props) {
     if (!e.target.files) return;
     const file = e.target.files[0];
     setImage(URL.createObjectURL(file));
-  }
+  };
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,25 +48,30 @@ export default function ExperienceForm({}: Props) {
         company: myForm.company as string,
         position: myForm.position as string,
         startDate: myForm.startDate as string,
-        endDate: myForm.endDate as string || undefined,
+        endDate: (myForm.endDate as string) || undefined,
         techStack: myForm.techStack as string,
-        logo: myForm.logo || null
+        logo: myForm.logo || null,
       },
     ]);
   };
-
+  console.log('companyToEdit = ', companyToEdit);
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
       <form
         className="flex flex-col gap-y-8 bg-white py-[24px] px-8 rounded-3xl items-start w-1/3 mx-auto justify-center"
         onSubmit={handleSubmit}
       >
-        <Input name="company" placeHolder="Company Name" />
-        <Input name="position" placeHolder="Your Position" />
+        {companyToEdit && <h1>{ companyToEdit.id }</h1>}
+        <Input
+          name="company"
+          placeHolder="Company Name"
+          value={companyToEdit?.company || ""}
+        />
+        <Input name="position" placeHolder="Your Position" value={companyToEdit?.position || ""}/>
         <div className="flex flex-row justify-between items-center w-full">
-          <input name="startDate" type="date" placeholder="Start Date" />
-          {!isWorking && (
-            <input name="endDate" type="date" placeholder="End Date" />
+          <input name="startDate" type="date" placeholder="Start Date" value={companyToEdit?.startDate || undefined}/>
+          {(!isWorking || companyToEdit?.endDate) && (
+            <input name="endDate" type="date" placeholder="End Date" value={companyToEdit?.endDate || undefined}/>
           )}
         </div>
         <div className="flex flex-row gap-x-2 items-center">
@@ -75,6 +81,7 @@ export default function ExperienceForm({}: Props) {
             id="isWorking"
             name="isWorking"
             onChange={() => setIsWorking(!isWorking)}
+            value={companyToEdit?.isWorking || ""}
           />
           <label htmlFor="isWorking">Currently Working?</label>
         </div>
@@ -170,7 +177,13 @@ export default function ExperienceForm({}: Props) {
           >
             Upload Company Logo
           </label>
-          <input id="logo" name="logo" type="file" hidden onChange={(e) => handleAddLogo(e)} />
+          <input
+            id="logo"
+            name="logo"
+            type="file"
+            hidden
+            onChange={(e) => handleAddLogo(e)}
+          />
           {!image ? (
             <svg
               width="57"
@@ -185,7 +198,11 @@ export default function ExperienceForm({}: Props) {
               />
             </svg>
           ) : (
-            <img className="w-[57px] h-[54px] rounded-lg" src={image} alt="Company Logo" />
+            <img
+              className="w-[57px] h-[54px] rounded-lg"
+              src={image}
+              alt="Company Logo"
+            />
           )}
         </div>
         <Button
@@ -204,12 +221,11 @@ export default function ExperienceForm({}: Props) {
               key={company.id}
               className="flex flex-row justify-between items-center w-full"
             >
+              {/* Edit Button */}
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  setCompanies((prev) => {
-                    return prev.filter((item) => item.id !== company.id);
-                  });
+                  setCompanyToEdit(company);
                 }}
               >
                 <svg
