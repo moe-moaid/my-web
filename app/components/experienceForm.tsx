@@ -28,13 +28,17 @@ export default function ExperienceForm({}: Props) {
     setSkills([...skills, { id: crypto.randomUUID(), name: "newSkill" }]);
   };
 
+  const handleAddLogo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    setImage(URL.createObjectURL(file));
+  }
+
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const myForm = Object.fromEntries(formData.entries());
-    console.log("formData = ", myForm);
-    console.log("formData = ", typeof myForm.logo);
 
     setCompanies([
       ...companies,
@@ -49,8 +53,7 @@ export default function ExperienceForm({}: Props) {
       },
     ]);
   };
-  console.log('formData = ', companies);
-  
+
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
       <form
@@ -167,7 +170,7 @@ export default function ExperienceForm({}: Props) {
           >
             Upload Company Logo
           </label>
-          <input id="logo" name="logo" type="file" hidden />
+          <input id="logo" name="logo" type="file" hidden onChange={(e) => handleAddLogo(e)} />
           {!image ? (
             <svg
               width="57"
@@ -182,7 +185,7 @@ export default function ExperienceForm({}: Props) {
               />
             </svg>
           ) : (
-            <img src={image} alt="Company Logo" />
+            <img className="w-[57px] h-[54px] rounded-lg" src={image} alt="Company Logo" />
           )}
         </div>
         <Button
