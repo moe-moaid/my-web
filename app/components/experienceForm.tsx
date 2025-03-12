@@ -54,7 +54,6 @@ export default function ExperienceForm({}: Props) {
       },
     ]);
   };
-  console.log('companyToEdit = ', companyToEdit);
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
       <form
