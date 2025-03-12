@@ -152,15 +152,15 @@ export default function ExperienceForm({}: Props) {
                     d="M20.3125 3.125H4.6875C3.82456 3.125 3.125 3.82456 3.125 4.6875V20.3125C3.125 21.1754 3.82456 21.875 4.6875 21.875H20.3125C21.1754 21.875 21.875 21.1754 21.875 20.3125V4.6875C21.875 3.82456 21.1754 3.125 20.3125 3.125Z"
                     fill="white"
                     stroke="white"
-                    stroke-width="4"
-                    stroke-linejoin="round"
+                    strokeWidth="4"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M12.5 8.33334V16.6667M8.33331 12.5H16.6666"
                     stroke="black"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </mask>
                 <g mask="url(#mask0_55_697)">
