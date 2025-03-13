@@ -1,4 +1,4 @@
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useEffect, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -23,7 +23,15 @@ export default function ExperienceForm({}: Props) {
   const [image, setImage] = useState<string | null>("");
   const [skills, setSkills] = useState<Skill[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [companyToEdit, setCompanyToEdit] = useState<Company>();
+  const [companyToEdit, setCompanyToEdit] = useState<Company>({
+    id: crypto.randomUUID(),
+    company: "",
+    position: "",
+    startDate: "",
+    endDate: "",
+    techStack: "",
+    logo: null,
+  });
   const handleAddSkill = (e: MouseEvent) => {
     e.preventDefault();
     setSkills([...skills, { id: crypto.randomUUID(), name: "newSkill" }]);
@@ -54,23 +62,50 @@ export default function ExperienceForm({}: Props) {
       },
     ]);
   };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCompanyToEdit((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  useEffect(() => {
+    console.log("companyToEdit = ", companyToEdit);
+  }, [companyToEdit]);
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
       <form
         className="flex flex-col gap-y-8 bg-white py-[24px] px-8 rounded-3xl items-start w-1/3 mx-auto justify-center"
         onSubmit={handleSubmit}
       >
-        {companyToEdit && <h1>{ companyToEdit.id }</h1>}
-        <Input
+        <input
           name="company"
-          placeHolder="Company Name"
+          placeholder="Company Name"
           value={companyToEdit?.company || ""}
+          onChange={handleInputChange}
         />
-        <Input name="position" placeHolder="Your Position" value={companyToEdit?.position || ""}/>
+        <input
+          name="position"
+          placeholder="Your Position"
+          value={companyToEdit?.position || ""}
+          onChange={handleInputChange}
+        />
         <div className="flex flex-row justify-between items-center w-full">
-          <input name="startDate" type="date" placeholder="Start Date" value={companyToEdit?.startDate || undefined}/>
+          <input
+            name="startDate"
+            type="date"
+            placeholder="Start Date"
+            value={companyToEdit?.startDate || undefined}
+            onChange={handleInputChange}
+          />
           {(!isWorking || companyToEdit?.endDate) && (
-            <input name="endDate" type="date" placeholder="End Date" value={companyToEdit?.endDate || undefined}/>
+            <input
+              name="endDate"
+              type="date"
+              placeholder="End Date"
+              value={companyToEdit?.endDate || undefined}
+              onChange={handleInputChange}
+            />
           )}
         </div>
         <div className="flex flex-row gap-x-2 items-center">
@@ -79,12 +114,16 @@ export default function ExperienceForm({}: Props) {
             defaultChecked={isWorking}
             id="isWorking"
             name="isWorking"
-            onChange={() => setIsWorking(!isWorking)}
+            onChange={handleInputChange}
             value={companyToEdit?.isWorking || ""}
           />
           <label htmlFor="isWorking">Currently Working?</label>
         </div>
-        <Input name="techStack" placeHolder="Set of Technologies" />
+        <Input
+          name="techStack"
+          placeHolder="Set of Technologies"
+          onChange={handleInputChange}
+        />
         <div className="bg-[#E4E4E4] flex flex-col gap-y-4 p-4 rounded-xl">
           <p>Add summery point about your trole in the company</p>
           {skills &&
@@ -98,6 +137,7 @@ export default function ExperienceForm({}: Props) {
                   type="text"
                   placeholder={skill.name}
                   className="placeholder:text-black w-full outline-none"
+                  onChange={handleInputChange}
                 />
                 <button
                   onClick={(e) => {
@@ -240,7 +280,7 @@ export default function ExperienceForm({}: Props) {
                   />
                 </svg>
               </button>
-              <Input value={company.company} />
+              <p>{company.company}</p>
               {/* Delete Button */}
               <button
                 onClick={(e) => {
