@@ -23,7 +23,7 @@ export default function ExperienceForm({}: Props) {
   const [image, setImage] = useState<string | null>("");
   const [skills, setSkills] = useState<Skill[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [companyToEdit, setCompanyToEdit] = useState<Company>({
+  const [companyToEdit, setCompanyToEdit] = useState<Company | null>({
     id: crypto.randomUUID(),
     company: "",
     position: "",
@@ -64,10 +64,14 @@ export default function ExperienceForm({}: Props) {
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCompanyToEdit((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const isWorkingValue = name === "isWorking" ? e.target.checked : value;
+    setCompanyToEdit((prevState) => {
+      if (!prevState) return null;
+      return {
+        ...prevState,
+        [name]: isWorkingValue,
+      };
+    });
   };
   useEffect(() => {
     console.log("companyToEdit = ", companyToEdit);
@@ -95,10 +99,10 @@ export default function ExperienceForm({}: Props) {
             name="startDate"
             type="date"
             placeholder="Start Date"
-            value={companyToEdit?.startDate || undefined}
+            value={companyToEdit?.startDate || ""}
             onChange={handleInputChange}
           />
-          {(!isWorking || companyToEdit?.endDate) && (
+          {!isWorking && !companyToEdit?.isWorking && (
             <input
               name="endDate"
               type="date"
