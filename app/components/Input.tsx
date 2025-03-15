@@ -1,6 +1,9 @@
 import React, { InputHTMLAttributes, useState } from "react";
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   placeHolder?: string;
+  name?: string;
+  value?: string | number;
+  onChange?: (e: any) => void;
 }
 export default function Input<HTMLInputElement>({
   placeHolder,
@@ -13,9 +16,9 @@ export default function Input<HTMLInputElement>({
     <input
       type="text"
       name={name}
-      value={input || value}
+      value={value}
       onChange={onChange}
-      placeholder={`${placeHolder ? placeHolder : ""}`}
+      placeholder={placeHolder}
       className="p-2 outline-none border-b border-[#2EC4CE] w-full placeholder:text-black text-black"
     />
   );

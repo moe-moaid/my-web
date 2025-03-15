@@ -82,15 +82,15 @@ export default function ExperienceForm({}: Props) {
         className="flex flex-col gap-y-8 bg-white py-[24px] px-8 rounded-3xl items-start w-1/3 mx-auto justify-center"
         onSubmit={handleSubmit}
       >
-        <input
+        <Input
           name="company"
-          placeholder="Company Name"
+          placeHolder="Company Name"
           value={companyToEdit?.company || ""}
           onChange={handleInputChange}
         />
-        <input
+        <Input
           name="position"
-          placeholder="Your Position"
+          placeHolder="Your Position"
           value={companyToEdit?.position || ""}
           onChange={handleInputChange}
         />
