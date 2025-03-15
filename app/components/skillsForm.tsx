@@ -64,10 +64,7 @@ export default function SkillsForm() {
         action=""
         className="flex flex-col gap-y-4 w-1/3 items-center bg-white rounded-3xl px-8 py-4 max-h-fit"
       >
-        <h1>Add a Skill to the List</h1>
-        <p className="text-center my-4 font-medium">
-          Edit your existing social media
-        </p>
+        <h1 className="text-center my-4 font-medium">Add a Skill to the List</h1>
         <div className="flex flex-row gap-x-3 justify-start items-center bg-[#E4E4E4] p-2 rounded-md">
           <p className="border-e-2 border-white pe-3">Next.js</p>
           <p className="">90</p>
