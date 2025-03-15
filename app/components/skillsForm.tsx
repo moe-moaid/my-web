@@ -40,7 +40,7 @@ export default function SkillsForm() {
         action=""
         className="flex flex-col gap-y-4 w-1/3 items-center bg-white rounded-3xl px-8 py-4 max-h-fit"
       >
-        <h1>Add a Skill to the List</h1>
+        <h1 className="text-center my-4 font-medium">Add a Skill to the List</h1>
         <Input
           name="name"
           value={currentSkill?.name}
