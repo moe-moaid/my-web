@@ -3,7 +3,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   style_type: "primary" | "secondary";
   fullWidth: boolean;
   text: string;
-  onClick: (e: any) => void;
+  onClick?: (e: any) => void;
 }
 export default function Button({ style_type, fullWidth, text, onClick }: Props) {
   return (
