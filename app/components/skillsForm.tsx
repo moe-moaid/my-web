@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from './Input'
 import Button from './Button'
 
@@ -8,15 +8,27 @@ type Skill = {
 }
 
 export default function SkillsForm() {
-  const [skills, setSkills] = useState<Skill[]>();
+  const [skills, setSkills] = useState<Skill[]>([]);
   const [currentSkill, setCurrentSkil] = useState<Skill>({name: "", proficiency: 0});
+  const handleAddSkill = (e: any) => {
+    e.preventDefault();
+    console.log('button clicked!');
+    setSkills((prev) => {
+      if (!prev) return[{ name: currentSkill.name, proficiency: currentSkill.proficiency }];
+      return [...prev, { name: currentSkill.name, proficiency: currentSkill.proficiency }];
+    });
+  };
+  useEffect(() => {
+    console.log(skills);
+    
+  }, [skills])
   return (
     <div className='flex flex-row gap-x-8 justify-center items-start mt-8'>
       <form action="" className='flex flex-col gap-y-4 w-1/3 items-center bg-white rounded-3xl px-8 py-4 max-h-fit'>
         <h1>Add a Skill to the List</h1>
         <Input placeHolder='Skill Name' onChange={e => setCurrentSkil({name: e.target.value, proficiency: currentSkill.proficiency})}/>
         <Input placeHolder='Proficiency' onChange={e => setCurrentSkil({name: currentSkill.name, proficiency: e.target.value})}/>
-        <Button style_type='primary' fullWidth text='Update Information' />
+        <Button style_type='primary' fullWidth text='Update Information' onClick={handleAddSkill} />
       </form>
       <form action="" className='flex flex-col gap-y-4 w-1/3 items-center bg-white rounded-3xl px-8 py-4 max-h-fit'>
         <h1>Add a Skill to the List</h1>
@@ -41,7 +53,7 @@ export default function SkillsForm() {
         </div>
         {
           skills && skills.map((item: Skill, index: number) => (
-        <div key={` ${index} - ${item.name} - ${item.proficiency}`} className="flex flex-row gap-x-3 mt-4 w-full justify-between items-center bg-[#E4E4E4] p-2 rounded-md">
+        <div key={` ${index} - ${item.name} - ${item.proficiency}`} className="flex flex-row gap-x-3 mt-4 w-fit justify-between items-center bg-[#E4E4E4] p-2 rounded-md">
               <p className="border-e-2 border-white pe-3">{ item.name }</p>
               <p className="">{ item.proficiency }</p>
               <button onClick={(e) => {
