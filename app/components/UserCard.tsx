@@ -2,10 +2,15 @@ import React from "react";
 import Image from "next/image";
 import developerImage from "@/public/assets/personal.jpg";
 import { SocialIcon } from "react-social-icons";
+import { motion } from "framer-motion";
 
 export default function UserCard() {
   return (
-    <div className="flex flex-col gap-y-[24px] items-center rounnded-lg w-[300px] bg-white rounded-2xl py-[48px] absolute top-10 right-2">
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 490 }}
+      transition={{ duration: 0.32 }}
+      className="flex flex-col gap-y-[24px] items-center rounnded-lg w-[300px] bg-white rounded-2xl py-[48px] absolute top-10 right-2">
       <Image
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
         src={developerImage}
@@ -61,6 +66,6 @@ export default function UserCard() {
         />
       </div>
       <button className="bg-[#E4E4E4] px-5 py-2 rounded-full text-[#2E8CFA] text-[12px] font-medium">Logout</button>
-    </div>
+    </motion.div>
   );
 }
