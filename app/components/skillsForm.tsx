@@ -12,7 +12,6 @@ export default function SkillsForm() {
   const [currentSkill, setCurrentSkil] = useState<Skill>();
   const handleAddSkill = (e: any) => {
     e.preventDefault();
-    console.log("button clicked!");
     setSkills((prev: Skill[]) => {
       if (!prev)
         return [
@@ -31,9 +30,6 @@ export default function SkillsForm() {
       return { ...base, [name]: value };
     });
   }
-  useEffect(() => {
-    console.log(skills);
-  }, [skills]);
   return (
     <div className="flex flex-row gap-x-8 justify-center items-start mt-8">
       <form
