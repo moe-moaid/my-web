@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -22,13 +22,21 @@ const Image_Placeholders: ReactNode = (
 export default function ProjectsForm({}: Props) {
   const [images, setImages] = useState<string[]>([]);
   function handleImagesUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    // if (!e.target.files) return;
+    if (!e.target.files) return;
     // setImages(URL.createObjectURL(e.target.files[0]));
-    for (let image in e.target.files) {
+    let image: string;
+    for (image in e.target.files) {
       console.log(e.target.files[image]);
-      setImages([...images, URL.createObjectURL(e.target.files[image])]);
+      setImages((prev) => {
+        if (!e.target.files) return;
+        return [...prev, URL.createObjectURL(e.target.files[image])]
+      });
     }
-  }
+  };
+  useEffect(() => {
+    console.log('images = ', images);
+    
+  }, [images]);
   return (
     <div className="flex flex-row justify-center items-start gap-x-8 mt-8">
       <form className="w-1/3 rounded-3xl bg-white max-h-fit flex flex-col items-center gap-y-4 px-4 py-8">
