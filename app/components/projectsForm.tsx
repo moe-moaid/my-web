@@ -74,7 +74,7 @@ export default function ProjectsForm({}: Props) {
             accept=".jpg, .jpeg, .png"
           />
         </div>
-        <div className="flex flex-row items-center justify-center gap-x-5">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-5">
           {images?.length === 0 && Image_Placeholders}
           {images?.length === 0 && Image_Placeholders}
           {images?.length === 0 && Image_Placeholders}
