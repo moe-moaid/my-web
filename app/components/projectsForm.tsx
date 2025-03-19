@@ -22,20 +22,30 @@ const Image_Placeholders: ReactNode = (
 export default function ProjectsForm({}: Props) {
   const [images, setImages] = useState<string[]>([]);
   function handleImagesUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!e.target.files) return;
-    // setImages(URL.createObjectURL(e.target.files[0]));
-    let image: string;
-    for (image in e.target.files) {
-      console.log(e.target.files[image]);
-      setImages((prev) => {
-        if (!e.target.files) return;
-        return [...prev, URL.createObjectURL(e.target.files[image])]
-      });
+    setImages([]);
+    if (!e.target.files || e.target.files.length === 0) return;
+    /**
+     * This approach for older versions of TS, you can update if from tsconfig.json file, 
+     * {
+     *    "compilerOptions": {
+            "target": "ES2015" or you can do "ESNext" for more recent version
+          }
+        }
+     */
+    // const tempImages = Array.from(e.target.files).map((image) => URL.createObjectURL(image));
+    // setImages(tempImages);
+
+    const tempImages: string[] = [];
+    for (let image of e.target.files) {
+      let link = URL.createObjectURL(image);
+      tempImages.push(link);
+
+      setImages( (prev) => [...prev, URL.createObjectURL(image)]);
     }
   };
+
   useEffect(() => {
     console.log('images = ', images);
-    
   }, [images]);
   return (
     <div className="flex flex-row justify-center items-start gap-x-8 mt-8">
@@ -65,11 +75,11 @@ export default function ProjectsForm({}: Props) {
           />
         </div>
         <div className="flex flex-row items-center justify-center gap-x-5">
-          {images.length === 0 && Image_Placeholders}
-          {images.length === 0 && Image_Placeholders}
-          {images.length === 0 && Image_Placeholders}
-          {images && images.map((image) => {
-            console.log(images);
+          {images?.length === 0 && Image_Placeholders}
+          {images?.length === 0 && Image_Placeholders}
+          {images?.length === 0 && Image_Placeholders}
+          {images && images.map((image, index) => {
+            console.log('images from rendering part = ', images, index);
             
             return <img src={image} className="w-[57px] h-[54px] rounded-lg" />
           }) }
