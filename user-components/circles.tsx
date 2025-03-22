@@ -24,13 +24,6 @@ export default function Circles({}: Props) {
         <div className='absolute mt-52 border border-[#333333] rounded-full h-[250px] w-[250px] md:h-[500px] md:w-[500px]'/>
         <div className='rounded-full border border-[#00C6CF] opacity-20 h-[320px] w-[320px] md:h-[650px] md:w-[650px] absolute mt-52 animate-pulse'/>
         <div className='absolute mt-52 border border-[#333333] rounded-full h-[360px] w-[360px] md:h-[800px] md:w-[800px]'/>
-
-
-        {/* <div className='absolute mt-52 border border-[#333333] animate-ping rounded-full h-[200px] w-[200px]'/>
-        <div className='absolute mt-52 border border-[#333333] rounded-full h-[220px] w-[220px]'/>
-        <div className='absolute mt-52 border border-[#333333] rounded-full h-[250px] w-[250px]'/>
-        <div className='rounded-full border border-[#00C6CF] opacity-20 h-[320px] w-[320px] absolute mt-52 animate-pulse'/>
-        <div className='absolute mt-52 border border-[#333333] rounded-full h-[360px] w-[360px]'/> */}
     </motion.div>
   )
 }

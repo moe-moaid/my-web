@@ -82,7 +82,7 @@ export default function ProjectsForm({}: Props) {
             images.map((image, index) => {
               return (
                 <div className="relative">
-                  <button className="absolute -top-2 -left-2 animate-spin">
+                  <button className="absolute -top-2 -left-2 animate-pulse">
                     <svg
                       width="20"
                       height="20"
