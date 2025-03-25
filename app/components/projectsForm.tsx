@@ -44,9 +44,13 @@ export default function ProjectsForm({}: Props) {
     }
   }
 
-  useEffect(() => {
-    console.log("images = ", images);
-  }, [images]);
+  const removePic = (e, itemIndex: number) => {
+    e.preventDefault();
+    images.filter((_, index) => (index !== itemIndex));
+    console.log(images);
+    
+  }
+
   return (
     <div className="flex flex-row justify-center items-start gap-x-8 mt-8">
       <form className="w-1/3 rounded-3xl bg-white max-h-fit flex flex-col items-center gap-y-4 px-4 py-8">
@@ -82,7 +86,7 @@ export default function ProjectsForm({}: Props) {
             images.map((image, index) => {
               return (
                 <div className="relative">
-                  <button className="absolute -top-2 -left-2 animate-pulse">
+                  <button className="absolute -top-2 -left-2 animate-pulse" onClick={(e) => removePic(e, index)}>
                     <svg
                       width="20"
                       height="20"
