@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { MouseEvent, ReactNode, useEffect, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -44,11 +44,9 @@ export default function ProjectsForm({}: Props) {
     }
   }
 
-  const removePic = (e, itemIndex: number) => {
+  const removePic = (e: React.MouseEvent, itemIndex: number) => {
     e.preventDefault();
-    images.filter((_, index) => (index !== itemIndex));
-    console.log(images);
-    
+    setImages(() => images.filter((_, index) => (index !== itemIndex)));
   }
 
   return (
