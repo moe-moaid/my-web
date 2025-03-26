@@ -1,6 +1,6 @@
 "use client";
 import { addContactInfo } from '@/actions/aboutSectionActions';
-import React, { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 
 type Props = {}
 
@@ -15,7 +15,7 @@ export default function Page({}: Props) {
   const [currently_working, setCurrently_working] = useState<boolean>();
   const formData = new FormData();
   
-  async function addContactInfo (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  async function addContactInfo (e: MouseEvent) {
     e.preventDefault()
     formData.append('position', position);
     formData.append('company', company);

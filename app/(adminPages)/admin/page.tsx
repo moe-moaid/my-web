@@ -1,5 +1,5 @@
 "use client";
-import React, { useState} from "react";
+import { MouseEvent, useState } from "react";
 import AdminLayout from "../layout";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { ListItem } from "@/typings";
@@ -14,7 +14,7 @@ export default function AdminPage({}: Props) {
   const [file, setFile] = useState<File | null>(null);
   const formData = new FormData();
 
-  async function hitApi(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  async function hitApi(e: MouseEvent) {
     e.preventDefault();
     formData.append("title", title);
     formData.append("description", message);
