@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -73,9 +73,6 @@ export default function ExperienceForm({}: Props) {
       };
     });
   };
-  useEffect(() => {
-    console.log("companyToEdit = ", companyToEdit);
-  }, [companyToEdit]);
   return (
     <div className="mt-8 flex flex-row justify-center items-start">
       <form
