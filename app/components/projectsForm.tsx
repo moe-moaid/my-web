@@ -1,6 +1,7 @@
 import { MouseEvent, ReactNode, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import Image from "next/image";
 
 type Props = {};
 
@@ -46,8 +47,8 @@ export default function ProjectsForm({}: Props) {
 
   const removePic = (e: MouseEvent, itemIndex: number) => {
     e.preventDefault();
-    setImages(() => images.filter((_, index) => (index !== itemIndex)));
-  }
+    setImages(() => images.filter((_, index) => index !== itemIndex));
+  };
 
   return (
     <div className="flex flex-row justify-center items-start gap-x-8 mt-8">
@@ -84,7 +85,10 @@ export default function ProjectsForm({}: Props) {
             images.map((image, index) => {
               return (
                 <div className="relative">
-                  <button className="absolute -top-2 -left-2 animate-pulse" onClick={(e) => removePic(e, index)}>
+                  <button
+                    className="absolute -top-2 -left-2 animate-pulse"
+                    onClick={(e) => removePic(e, index)}
+                  >
                     <svg
                       width="20"
                       height="20"
@@ -100,7 +104,13 @@ export default function ProjectsForm({}: Props) {
                     </svg>
                   </button>
 
-                  <img src={image} className="w-[57px] h-[54px] rounded-lg" />
+                  <Image
+                    className="w-[57px] h-[54px] rounded-lg"
+                    src={image}
+                    width={57}
+                    height={54}
+                    alt="project Image"
+                  />
                 </div>
               );
             })}

@@ -16,9 +16,7 @@ export default function TechsForm() {
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
-    console.log(typeof body.skillName);
-    console.log(body.skillLogo);
-    
+
     setSkills((prev) => {
       if (!prev)
         return [
@@ -38,13 +36,16 @@ export default function TechsForm() {
       ];
     });
   }
-  useEffect(() => {
-    
-  }, [skills])
+  useEffect(() => {}, [skills]);
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
-      <form className="flex flex-col bg-white rounded-3xl p-4 w-1/3 gap-y-8 max-h-fit" onSubmit={handleFormSubmit}>
-        <h1 className="mx-auto font-medium text-[14px]">Add a Skill Name with its Logo</h1>
+      <form
+        className="flex flex-col bg-white rounded-3xl p-4 w-1/3 gap-y-8 max-h-fit"
+        onSubmit={handleFormSubmit}
+      >
+        <h1 className="mx-auto font-medium text-[14px]">
+          Add a Skill Name with its Logo
+        </h1>
         <Input placeHolder="Skill Name" name="skillName" />
         <div className="flex flex-row justify-between items-center">
           <label
@@ -79,8 +80,7 @@ export default function TechsForm() {
             </svg>
           )}
           {skill && (
-            // <img className="w-[57px] h-[54px] rounded-lg" src={skill} />
-            <Image src={skill} width='57' height='52' alt='preview Image'/>
+            <Image src={skill} width="57" height="52" alt="preview Image" />
           )}
         </div>
         <button
@@ -91,10 +91,15 @@ export default function TechsForm() {
         </button>
       </form>
       <form className="flex flex-col bg-white rounded-3xl p-4 w-1/3 gap-y-8 max-h-fit">
-        <h1 className="mx-auto font-medium text-[14px]">Edit your Existing Skills</h1>
+        <h1 className="mx-auto font-medium text-[14px]">
+          Edit your Existing Skills
+        </h1>
         {skills &&
           skills.map((skill) => (
-            <div key={skill.id} className="flex flex-row justify-between items-center bg-[#E4E4E4] px-3 rounded-md py-1">
+            <div
+              key={skill.id}
+              className="flex flex-row justify-between items-center bg-[#E4E4E4] px-3 rounded-md py-1"
+            >
               <p>{skill.name}</p>
               <div className="flex gap-x-2 items-center">
                 {/* Edit Button */}
@@ -113,16 +118,18 @@ export default function TechsForm() {
                   </svg>
                 </button>
                 {/* Delete Button */}
-                <button onClick={(e) => {
-                  e.preventDefault();
-                  setSkills((prev) => {
-                    if (!prev) return null;
-                    const tempArr = prev?.filter((item) => {
-                      return item.id !== skill.id
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSkills((prev) => {
+                      if (!prev) return null;
+                      const tempArr = prev?.filter((item) => {
+                        return item.id !== skill.id;
+                      });
+                      return tempArr;
                     });
-                    return tempArr;
-                  })
-                }}>
+                  }}
+                >
                   <svg
                     width="16"
                     height="16"

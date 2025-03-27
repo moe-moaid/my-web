@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState } from "react";
 
 type Animations = { id: string; name: string };
@@ -115,10 +116,12 @@ export default function HeroForm() {
       {/* Image preview */}
       <div className="w-20 h-20 border border-gray-300 rounded-md flex items-center justify-center overflow-hidden">
         {image ? (
-          <img
+          <Image
+            className="w-[57px] h-[54px] rounded-lg"
             src={image}
-            alt="Preview"
-            className="w-full h-full object-cover"
+            width={57}
+            height={54}
+            alt="Company Logo"
           />
         ) : (
           <svg
