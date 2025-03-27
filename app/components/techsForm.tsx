@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./Input";
+import Image from "next/image";
 
 type SkillsType = {
   id: string;
   name: string;
-  logo: string;
+  logo: File;
 };
 export default function TechsForm() {
   const [skill, setSkill] = useState<string>();
@@ -15,25 +16,31 @@ export default function TechsForm() {
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
-    setSkills((prev: SkillsType | null) => {
+    console.log(typeof body.skillName);
+    console.log(body.skillLogo);
+    
+    setSkills((prev) => {
       if (!prev)
         return [
           {
-            id: crypto.randomUUID,
-            name: body.skillName,
-            logo: body.skillLogo,
+            id: crypto.randomUUID(),
+            name: body.skillName as string,
+            logo: body.skillLogo as File,
           },
         ];
       return [
         ...prev,
         {
-          id: crypto.randomUUID,
-          name: body.skillName,
-          logo: body.skillLogo,
+          id: crypto.randomUUID(),
+          name: body.skillName as string,
+          logo: body.skillLogo as File,
         },
       ];
     });
   }
+  useEffect(() => {
+    
+  }, [skills])
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form className="flex flex-col bg-white rounded-3xl p-4 w-1/3 gap-y-8 max-h-fit" onSubmit={handleFormSubmit}>
@@ -72,7 +79,8 @@ export default function TechsForm() {
             </svg>
           )}
           {skill && (
-            <img className="w-[57px] h-[54px] rounded-lg" src={skill} />
+            // <img className="w-[57px] h-[54px] rounded-lg" src={skill} />
+            <Image src={skill} width='57' height='52' alt='preview Image'/>
           )}
         </div>
         <button
@@ -82,7 +90,7 @@ export default function TechsForm() {
           Update Information
         </button>
       </form>
-      <form className="flex flex-col bg-white rounded-3xl p-4 w-1/3 gap-y-8">
+      <form className="flex flex-col bg-white rounded-3xl p-4 w-1/3 gap-y-8 max-h-fit">
         <h1 className="mx-auto font-medium text-[14px]">Edit your Existing Skills</h1>
         {skills &&
           skills.map((skill) => (
@@ -105,7 +113,16 @@ export default function TechsForm() {
                   </svg>
                 </button>
                 {/* Delete Button */}
-                <button>
+                <button onClick={(e) => {
+                  e.preventDefault();
+                  setSkills((prev) => {
+                    if (!prev) return null;
+                    const tempArr = prev?.filter((item) => {
+                      return item.id !== skill.id
+                    });
+                    return tempArr;
+                  })
+                }}>
                   <svg
                     width="16"
                     height="16"
