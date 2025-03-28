@@ -7,10 +7,12 @@ import { motion } from "framer-motion";
 export default function UserCard() {
   return (
     <motion.div
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ opacity: 1, height: 490 }}
-      transition={{ duration: 0.32 }}
-      className="flex flex-col gap-y-[24px] items-center rounnded-lg w-[300px] bg-white rounded-2xl py-[48px] absolute top-10 right-2">
+      initial={{ opacity: 0, scaleY: 0 }}
+      animate={{ opacity: 1, scaleY: 1 }}
+      transition={{ duration: 0.32, ease: "easeInOut" }}
+      style={{transformOrigin: "top"}}
+      className="flex flex-col gap-y-[24px] items-center rounnded-lg w-[300px] bg-white rounded-2xl py-[48px] absolute top-10 right-2"
+    >
       <Image
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
         src={developerImage}
@@ -65,7 +67,9 @@ export default function UserCard() {
           fgColor="#2196F3"
         />
       </div>
-      <button className="bg-[#E4E4E4] px-5 py-2 rounded-full text-[#2E8CFA] text-[12px] font-medium">Logout</button>
+      <button className="bg-[#E4E4E4] px-5 py-2 rounded-full text-[#2E8CFA] text-[12px] font-medium">
+        Logout
+      </button>
     </motion.div>
   );
 }
