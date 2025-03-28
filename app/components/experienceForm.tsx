@@ -1,6 +1,7 @@
 import { MouseEvent, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import Image from "next/image";
 
 type Props = {};
 type Skill = {
@@ -238,9 +239,11 @@ export default function ExperienceForm({}: Props) {
               />
             </svg>
           ) : (
-            <img
+            <Image
               className="w-[57px] h-[54px] rounded-lg"
               src={image}
+              width={57}
+              height={54}
               alt="Company Logo"
             />
           )}

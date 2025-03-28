@@ -1,4 +1,5 @@
 import { addAbout } from "@/actions/aboutSectionActions";
+import Image from "next/image";
 import React, { useState } from "react";
 
 type Props = {};
@@ -65,7 +66,13 @@ export default function AboutForm({}: Props) {
               />
             </svg>
           ) : (
-            <img src={currentImage} alt="Image Preview" />
+            <Image
+              className="w-[57px] h-[54px] rounded-lg"
+              src={currentImage}
+              width={57}
+              height={54}
+              alt="Image Preview"
+            />
           )}
         </div>
 
