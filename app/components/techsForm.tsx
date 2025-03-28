@@ -8,15 +8,17 @@ type SkillsType = {
   logo: File;
 };
 export default function TechsForm() {
-  const [skill, setSkill] = useState<string>();
+  const [skillImage, setSkillImage] = useState<string>();
   const [skills, setSkills] = useState<SkillsType[] | null>(null);
   const [editable, setEditable] = useState<SkillsType | null>(null);
+  const [enableSubmit, setEnableSubmit] = useState<boolean>(false);
   function handleFormSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
 
+    if (body) setEnableSubmit(true);
     setSkills((prev) => {
       if (!prev)
         return [
@@ -36,7 +38,7 @@ export default function TechsForm() {
       ];
     });
   }
-  useEffect(() => {}, [skills]);
+  
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -62,10 +64,10 @@ export default function TechsForm() {
             hidden
             onChange={(e) => {
               if (!e.target.files) return;
-              setSkill(URL.createObjectURL(e.target.files[0]));
+              setSkillImage(URL.createObjectURL(e.target.files[0]));
             }}
           />
-          {!skill && (
+          {!skillImage && (
             <svg
               width="57"
               height="54"
@@ -79,8 +81,8 @@ export default function TechsForm() {
               />
             </svg>
           )}
-          {skill && (
-            <Image src={skill} width="57" height="52" alt="preview Image" />
+          {skillImage && (
+            <Image src={skillImage} width="57" height="52" alt="preview Image" />
           )}
         </div>
         <button
