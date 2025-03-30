@@ -11,14 +11,13 @@ export default function TechsForm() {
   const [skillImage, setSkillImage] = useState<string>();
   const [skills, setSkills] = useState<SkillsType[] | null>(null);
   const [editable, setEditable] = useState<SkillsType | null>(null);
-  const [enableSubmit, setEnableSubmit] = useState<boolean>(false);
+  const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
   function handleFormSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
 
-    if (body) setEnableSubmit(true);
     setSkills((prev) => {
       if (!prev)
         return [
@@ -38,7 +37,7 @@ export default function TechsForm() {
       ];
     });
   }
-  
+
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -86,7 +85,7 @@ export default function TechsForm() {
           )}
         </div>
         <button
-          className="font-medium bg-[#2E8CFA] text-white px-2 py-1 rounded-md text-[12px]"
+          className="font-medium bg-[#2E8CFA] text-white px-2 py-1 rounded-md text-[12px] disabled:bg-gray-300 disabled:hover:cursor-not-allowed"
           type="submit"
         >
           Update Information
