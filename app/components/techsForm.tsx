@@ -79,7 +79,7 @@ export default function TechsForm() {
                 fill="#E4E4E4"
               />
             </svg>
-          )}
+          )
           {skillImage && (
             <Image src={skillImage} width="57" height="52" alt="preview Image" />
           )}
