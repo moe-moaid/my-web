@@ -85,12 +85,12 @@ const [menuItems, setMenuItems] = useState<ListItem[]>([
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
-        <Image
+        {/* <Image
         width={1920}
         height={500}
         alt='Image'
         src={`https://picsum.photos/1920/500/?random${new Date().getTime()}`}
-        />
+        /> */}
       </div>
       <div className="flex flex-col">
         <div className="flex flex-row justify-center items-center">
