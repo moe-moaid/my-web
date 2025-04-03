@@ -84,18 +84,16 @@ const [menuItems, setMenuItems] = useState<ListItem[]>([
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center relative justify-center w-full h-[550px]">
         <Image
-        width={1920}
-        height={500}
+        fill={true}
         alt='Image'
         src={`https://picsum.photos/1920/500/?random${new Date().getTime()}`}
         />
       </div>
       <div className="flex flex-col">
         <div className="flex flex-row justify-center items-center">
-          <ul className='text-black font-semibold flex flex-row space-x-5 mt-5'>
-            {/* <li className="flex flex-row justify-center p-2 border border-b capitalize">start editing your content</li> */}
+          <ul className='text-black font-semibold flex flex-row flex-wrap gap-5 mt-5 px-2'>
             {menuItems.map((item) => (
               <li
                 key={item.id}
