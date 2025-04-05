@@ -97,7 +97,7 @@ const [menuItems, setMenuItems] = useState<ListItem[]>([
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                onClick={() => handleMenueClick(item.id)}
+                onClick={() => handleenueClick(item.id)}
                 className={`group py-1 px-5 hover:text-[#2E8CFA] ${item.status == true ? 'bg-slate-300' : ''} hover:cursor-pointer transition-all ease-in-out duration-300 flex flex-row items-center justify-between border border-[#D8D8D8] rounded-md`}
               >
                 {item.text}
