@@ -38,6 +38,8 @@ export default function TechsForm() {
     });
   }
 
+  console.log(editable);
+
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -47,7 +49,11 @@ export default function TechsForm() {
         <h1 className="mx-auto font-medium text-[14px]">
           Add a Skill Name with its Logo
         </h1>
-        <Input placeHolder="Skill Name" value={editable?.name || null} name="skillName" />
+        <Input
+          placeHolder="Skill Name"
+          value={editable?.name || null}
+          name="skillName"
+        />
         <div className="flex flex-row justify-between items-center">
           <label
             className="font-medium bg-[#2E8CFA] text-white px-2 py-1 rounded-md text-[12px]"
@@ -82,7 +88,12 @@ export default function TechsForm() {
             </svg>
           )}
           {skillImage && (
-            <Image src={skillImage} width="57" height="52" alt="preview Image" />
+            <Image
+              src={skillImage}
+              width="57"
+              height="52"
+              alt="preview Image"
+            />
           )}
         </div>
         <button
@@ -105,11 +116,17 @@ export default function TechsForm() {
               <p>{skill.name}</p>
               <div className="flex gap-x-2 items-center">
                 {/* Edit Button */}
-                <button onClick={e => {
-                  e.preventDefault()
-                  console.log(e);
-                  setEditable(skill);
-                }}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log(e);
+                    setEditable({
+                      id: skill.id,
+                      name: skill.name,
+                      logo: URL.createObjectURL(skill.logo),
+                    });
+                  }}
+                >
                   <svg
                     width="20"
                     height="20"
