@@ -47,7 +47,7 @@ export default function TechsForm() {
         <h1 className="mx-auto font-medium text-[14px]">
           Add a Skill Name with its Logo
         </h1>
-        <Input placeHolder="Skill Name" name="skillName" />
+        <Input placeHolder="Skill Name" value={editable?.name || null} name="skillName" />
         <div className="flex flex-row justify-between items-center">
           <label
             className="font-medium bg-[#2E8CFA] text-white px-2 py-1 rounded-md text-[12px]"
@@ -60,6 +60,7 @@ export default function TechsForm() {
             name="skillLogo"
             type="file"
             accept=".jpg, .jpeg, .png"
+            value={editable?.logo || null}
             hidden
             onChange={(e) => {
               if (!e.target.files) return;
@@ -104,7 +105,11 @@ export default function TechsForm() {
               <p>{skill.name}</p>
               <div className="flex gap-x-2 items-center">
                 {/* Edit Button */}
-                <button>
+                <button onClick={e => {
+                  e.preventDefault()
+                  console.log(e);
+                  setEditable(skill);
+                }}>
                   <svg
                     width="20"
                     height="20"
