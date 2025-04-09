@@ -38,8 +38,6 @@ export default function TechsForm() {
     });
   }
 
-  console.log(editable);
-
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -119,11 +117,10 @@ export default function TechsForm() {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    console.log(e);
                     setEditable({
                       id: skill.id,
                       name: skill.name,
-                      logo: URL.createObjectURL(skill.logo),
+                      logo: URL.createObjectURL(skill.logo || null),
                     });
                   }}
                 >
