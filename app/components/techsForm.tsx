@@ -64,7 +64,6 @@ export default function TechsForm() {
             name="skillLogo"
             type="file"
             accept=".jpg, .jpeg, .png"
-            value={editable?.logo || null}
             hidden
             onChange={(e) => {
               if (!e.target.files) return;
