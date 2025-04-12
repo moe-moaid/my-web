@@ -11,7 +11,6 @@ export default function TechsForm() {
   const [skillImage, setSkillImage] = useState<string>();
   const [skills, setSkills] = useState<SkillsType[] | null>(null);
   const [editable, setEditable] = useState<SkillsType | null>(null);
-  const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
   function handleFormSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = e.target as HTMLFormElement;
@@ -64,7 +63,7 @@ export default function TechsForm() {
             name="skillLogo"
             type="file"
             accept=".jpg, .jpeg, .png"
-            value={editable?.logo || null}
+            // value={editable?.logo || null}
             hidden
             onChange={(e) => {
               if (!e.target.files) return;
