@@ -36,6 +36,8 @@ export default function TechsForm() {
       ];
     });
   }
+  console.log('logo', editable);
+  
 
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
@@ -83,9 +85,9 @@ export default function TechsForm() {
               />
             </svg>
           )}
-          {skillImage && (
+          {skillImage || editable?.logo && (
             <Image
-              src={skillImage}
+              src={skillImage || editable.logo}
               width="57"
               height="52"
               alt="preview Image"
