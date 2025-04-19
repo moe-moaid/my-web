@@ -36,9 +36,7 @@ export default function TechsForm() {
       ];
     });
   }
-  console.log('logo', editable);
-  
-
+  console.log(skills);
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -85,9 +83,9 @@ export default function TechsForm() {
               />
             </svg>
           )}
-          {skillImage || editable?.logo && (
+          {(skillImage || editable?.logo) && (
             <Image
-              src={skillImage || editable.logo}
+              src={skillImage}
               width="57"
               height="52"
               alt="preview Image"
@@ -122,6 +120,7 @@ export default function TechsForm() {
                       name: skill.name,
                       logo: URL.createObjectURL(skill.logo || null),
                     });
+                    setSkillImage(editable?.logo);
                   }}
                 >
                   <svg
