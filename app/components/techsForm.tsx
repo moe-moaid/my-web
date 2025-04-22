@@ -36,7 +36,9 @@ export default function TechsForm() {
       ];
     });
   }
-  console.log(skills);
+  const handleIputChange = (e) => {
+    setSkills(prevState => ...prevState, name: e.target.value);
+  }
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -48,8 +50,10 @@ export default function TechsForm() {
         </h1>
         <Input
           placeHolder="Skill Name"
-          value={editable?.name || null}
+          value={editable?.name || ""}
           name="skillName"
+          required
+          onChange={handleIputChange}
         />
         <div className="flex flex-row justify-between items-center">
           <label
