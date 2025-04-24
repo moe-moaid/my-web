@@ -87,7 +87,7 @@ export default function TechsForm() {
               />
             </svg>
           )}
-          {(skillImage || editable?.logo) && (
+          {skillImage && (
             <Image
               src={skillImage}
               width="57"
