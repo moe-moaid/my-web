@@ -36,8 +36,8 @@ export default function TechsForm() {
       ];
     });
   }
-  const handleIputChange = (e) => {
-    setSkills(prevState => ...prevState, name: e.target.value);
+  const handleIputChange = (e: any) => {
+    setSkills(prevState => [...prevState, { name: e.target.value }]);
   }
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
