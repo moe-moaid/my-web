@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Image from "next/image";
 
@@ -7,38 +7,77 @@ type SkillsType = {
   name: string;
   logo: File;
 };
+type CurrentSkilType = {
+  id: string;
+  name: string;
+  logo: string;
+};
 export default function TechsForm() {
   const [skillImage, setSkillImage] = useState<string>();
   const [skills, setSkills] = useState<SkillsType[] | null>(null);
-  const [editable, setEditable] = useState<SkillsType | null>(null);
+  const [currentSkill, setCurrentSkill] = useState<CurrentSkilType | null>(null);
   function handleFormSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
+    console.log('recieved Data ===', body.name, body.logo);
+    
 
     setSkills((prev) => {
+      console.log('prev values ===', prev);
+      
       if (!prev)
         return [
           {
             id: crypto.randomUUID(),
-            name: body.skillName as string,
-            logo: body.skillLogo as File,
+            name: body.name as string,
+            logo: body.logo as File,
           },
         ];
+      if (prev && !prev.some((skill) => skill.id === currentSkill?.id))
       return [
         ...prev,
         {
           id: crypto.randomUUID(),
-          name: body.skillName as string,
-          logo: body.skillLogo as File,
+          name: body.name as string,
+          logo: body.logo as File,
         },
       ];
+      if (prev && prev.some((skill) => skill.id === currentSkill?.id)){
+        const skillToChange = prev.find((skill) => skill.id === currentSkill?.id);
+       return [
+        ...prev,
+        {
+          id: skillToChange?.id,
+          name: skillToChange?.name,
+          logo: skillToChange?.logo,
+        },
+        ];
+      }
     });
+    setCurrentSkill(null);
   }
-  const handleIputChange = (e) => {
-    setSkills(prevState => [...prevState, {name: e.target.value}]);
+
+
+  const handleIputChange = (e: any) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    
+    setCurrentSkill({ ...currentSkill, [name]: value });
   }
+  const handleEditButton = (e: React.MouseEvent, skillId: string) => {
+    e.preventDefault();
+    const selectedSkill = skills?.find((skill) => skill.id === skillId);
+    if (!selectedSkill) return;
+    setCurrentSkill({ name: selectedSkill.name, logo: URL.createObjectURL(selectedSkill.logo) });
+    setSkillImage(currentSkill?.logo);
+  }
+  useEffect(() => {
+    console.log('mySkillls ====', skills);
+  }, [skills]);
+
+  
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -50,8 +89,8 @@ export default function TechsForm() {
         </h1>
         <Input
           placeHolder="Skill Name"
-          value={editable?.name || ""}
-          name="skillName"
+          value={currentSkill?.name}
+          name="name"
           required
           onChange={handleIputChange}
         />
@@ -64,16 +103,17 @@ export default function TechsForm() {
           </label>
           <input
             id="skillLogo"
-            name="skillLogo"
+            name="logo"
             type="file"
             accept=".jpg, .jpeg, .png"
             hidden
             onChange={(e) => {
               if (!e.target.files) return;
               setSkillImage(URL.createObjectURL(e.target.files[0]));
+              setCurrentSkill({name: currentSkill?.name,  logo: URL.createObjectURL(e.target.files[0]) });
             }}
           />
-          {!skillImage && (
+          {!currentSkill?.logo && (
             <svg
               width="57"
               height="54"
@@ -87,9 +127,9 @@ export default function TechsForm() {
               />
             </svg>
           )}
-          {skillImage && (
+          {currentSkill?.logo && (
             <Image
-              src={skillImage}
+              src={ currentSkill.logo }
               width="57"
               height="52"
               alt="preview Image"
@@ -99,6 +139,7 @@ export default function TechsForm() {
         <button
           className="font-medium bg-[#2E8CFA] text-white px-2 py-1 rounded-md text-[12px] disabled:bg-gray-300 disabled:hover:cursor-not-allowed"
           type="submit"
+          disabled={!currentSkill?.name || (!currentSkill.logo && !skillImage)}
         >
           Update Information
         </button>
@@ -108,7 +149,10 @@ export default function TechsForm() {
           Edit your Existing Skills
         </h1>
         {skills &&
-          skills.map((skill) => (
+          skills.map((skill) => {
+            console.log('special skill ===', skill);
+            
+            return (
             <div
               key={skill.id}
               className="flex flex-row justify-between items-center bg-[#E4E4E4] px-3 rounded-md py-1"
@@ -117,15 +161,7 @@ export default function TechsForm() {
               <div className="flex gap-x-2 items-center">
                 {/* Edit Button */}
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setEditable({
-                      id: skill.id,
-                      name: skill.name,
-                      logo: URL.createObjectURL(skill.logo || null),
-                    });
-                    setSkillImage(editable?.logo);
-                  }}
+                  onClick={(e) => { handleEditButton(e, skill.id) }}
                 >
                   <svg
                     width="20"
@@ -168,7 +204,8 @@ export default function TechsForm() {
                 </button>
               </div>
             </div>
-          ))}
+          )
+          })}
       </form>
     </div>
   );
