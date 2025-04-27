@@ -25,7 +25,7 @@ export default function TechsForm() {
     
 
     setSkills((prev) => {
-      console.log('prev values ===', prev);
+      console.log('prev values ===', prev, prev?.some((skill) => skill.id === currentSkill?.id));
       
       if (!prev)
         return [
