@@ -5,7 +5,7 @@ import Image from "next/image";
 type SkillsType = {
   id: string;
   name: string;
-  logo: File;
+  logo: File | string;
 };
 type CurrentSkilType = {
   id: string;
@@ -25,7 +25,8 @@ export default function TechsForm() {
     
 
     setSkills((prev) => {
-      console.log('prev values ===', prev, prev?.some((skill) => skill.id === currentSkill?.id));
+      console.log('prev values ===', prev, prev?.some((skill) => currentSkill?.id === skill.id), currentSkill?.id);
+      console.log('currentSkill?.id ===', currentSkill?.id);
       
       if (!prev)
         return [
@@ -46,14 +47,13 @@ export default function TechsForm() {
       ];
       if (prev && prev.some((skill) => skill.id === currentSkill?.id)){
         const skillToChange = prev.find((skill) => skill.id === currentSkill?.id);
-       return [
-        ...prev,
-        {
-          id: skillToChange?.id,
-          name: skillToChange?.name,
-          logo: skillToChange?.logo,
-        },
-        ];
+        const newArr = [...prev];
+        if (!skillToChange) return;
+        const indexOfSkill = newArr.indexOf(skillToChange);
+        if (indexOfSkill !== -1)
+          newArr[indexOfSkill] = {...newArr[indexOfSkill], name: body.name as string, logo: body.logo}
+
+        return newArr;
       }
     });
     setCurrentSkill(null);
@@ -62,15 +62,14 @@ export default function TechsForm() {
 
   const handleIputChange = (e: any) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    
+    if (currentSkill?.id) console.log('hello', currentSkill);
     setCurrentSkill({ ...currentSkill, [name]: value });
   }
   const handleEditButton = (e: React.MouseEvent, skillId: string) => {
     e.preventDefault();
     const selectedSkill = skills?.find((skill) => skill.id === skillId);
     if (!selectedSkill) return;
-    setCurrentSkill({ name: selectedSkill.name, logo: URL.createObjectURL(selectedSkill.logo) });
+    setCurrentSkill({ id: selectedSkill.id, name: selectedSkill.name, logo: URL.createObjectURL(selectedSkill.logo) });
     setSkillImage(currentSkill?.logo);
   }
   useEffect(() => {
@@ -110,7 +109,8 @@ export default function TechsForm() {
             onChange={(e) => {
               if (!e.target.files) return;
               setSkillImage(URL.createObjectURL(e.target.files[0]));
-              setCurrentSkill({name: currentSkill?.name,  logo: URL.createObjectURL(e.target.files[0]) });
+              if (!currentSkill) return;
+              setCurrentSkill({id: currentSkill?.id, name: currentSkill?.name,  logo: URL.createObjectURL(e.target.files[0]) });
             }}
           />
           {!currentSkill?.logo && (
