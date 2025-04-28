@@ -21,13 +21,9 @@ export default function TechsForm() {
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
-    console.log('recieved Data ===', body.name, body.logo);
     
 
     setSkills((prev) => {
-      console.log('prev values ===', prev, prev?.some((skill) => currentSkill?.id === skill.id), currentSkill?.id);
-      console.log('currentSkill?.id ===', currentSkill?.id);
-      
       if (!prev)
         return [
           {
@@ -62,7 +58,6 @@ export default function TechsForm() {
 
   const handleIputChange = (e: any) => {
     const { name, value } = e.target;
-    if (currentSkill?.id) console.log('hello', currentSkill);
     setCurrentSkill({ ...currentSkill, [name]: value });
   }
   const handleEditButton = (e: React.MouseEvent, skillId: string) => {
@@ -72,11 +67,7 @@ export default function TechsForm() {
     setCurrentSkill({ id: selectedSkill.id, name: selectedSkill.name, logo: URL.createObjectURL(selectedSkill.logo) });
     setSkillImage(currentSkill?.logo);
   }
-  useEffect(() => {
-    console.log('mySkillls ====', skills);
-  }, [skills]);
 
-  
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
       <form
@@ -150,8 +141,6 @@ export default function TechsForm() {
         </h1>
         {skills &&
           skills.map((skill) => {
-            console.log('special skill ===', skill);
-            
             return (
             <div
               key={skill.id}
