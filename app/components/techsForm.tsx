@@ -15,7 +15,7 @@ type CurrentSkilType = {
 export default function TechsForm() {
   const [skillImage, setSkillImage] = useState<string>();
   const [skills, setSkills] = useState<SkillsType[] | null>(null);
-  const [currentSkill, setCurrentSkill] = useState<CurrentSkilType | null>(null);
+  const [currentSkill, setCurrentSkill] = useState<Partial<CurrentSkilType | null>>(null);
   function handleFormSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = e.target as HTMLFormElement;
@@ -44,7 +44,7 @@ export default function TechsForm() {
       else if (prev && prev.some((skill) => skill.id === currentSkill?.id)) {
         const skillToChange = prev.find((skill) => skill.id === currentSkill?.id);
         const newArr = [...prev];
-        if (!skillToChange) return [];
+        if (!skillToChange) return prev;
         const indexOfSkill = newArr.indexOf(skillToChange);
         if (indexOfSkill !== -1)
           newArr[indexOfSkill] = { ...newArr[indexOfSkill], name: body.name as string, logo: body.logo }
