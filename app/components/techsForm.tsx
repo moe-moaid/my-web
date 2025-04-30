@@ -32,25 +32,25 @@ export default function TechsForm() {
             logo: body.logo as File,
           },
         ];
-      if (prev && !prev.some((skill) => skill.id === currentSkill?.id))
-      return [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          name: body.name as string,
-          logo: body.logo as File,
-        },
-      ];
-      if (prev && prev.some((skill) => skill.id === currentSkill?.id)){
+      else if (prev && !prev.some((skill) => skill.id === currentSkill?.id))
+        return [
+          ...prev,
+          {
+            id: crypto.randomUUID(),
+            name: body.name as string,
+            logo: body.logo as File,
+          },
+        ];
+      else if (prev && prev.some((skill) => skill.id === currentSkill?.id)) {
         const skillToChange = prev.find((skill) => skill.id === currentSkill?.id);
         const newArr = [...prev];
-        if (!skillToChange) return;
+        if (!skillToChange) return [];
         const indexOfSkill = newArr.indexOf(skillToChange);
         if (indexOfSkill !== -1)
-          newArr[indexOfSkill] = {...newArr[indexOfSkill], name: body.name as string, logo: body.logo}
+          newArr[indexOfSkill] = { ...newArr[indexOfSkill], name: body.name as string, logo: body.logo }
 
         return newArr;
-      }
+      } else return [];
     });
     setCurrentSkill(null);
   }
