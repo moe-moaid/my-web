@@ -64,7 +64,10 @@ export default function TechsForm() {
     e.preventDefault();
     const selectedSkill = skills?.find((skill) => skill.id === skillId);
     if (!selectedSkill) return;
-    setCurrentSkill({ id: selectedSkill.id, name: selectedSkill.name, logo: URL.createObjectURL(selectedSkill.logo) });
+
+    const logo = selectedSkill.logo instanceof File ? URL.createObjectURL(selectedSkill.logo) : selectedSkill.logo;
+
+    setCurrentSkill({ id: selectedSkill.id, name: selectedSkill.name, logo });
     setSkillImage(currentSkill?.logo);
   }
 
