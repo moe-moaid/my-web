@@ -2,9 +2,7 @@ import { addAbout } from "@/actions/aboutSectionActions";
 import Image from "next/image";
 import React, { useState } from "react";
 
-type Props = {};
-
-export default function AboutForm({}: Props) {
+export default function AboutForm() {
   const [currentImage, setCurrentImage] = useState<string | null>("");
   const myImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;

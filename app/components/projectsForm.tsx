@@ -3,7 +3,6 @@ import Input from "./Input";
 import Button from "./Button";
 import Image from "next/image";
 
-type Props = {};
 
 const Image_Placeholders: ReactNode = (
   <svg
@@ -20,7 +19,7 @@ const Image_Placeholders: ReactNode = (
   </svg>
 );
 
-export default function ProjectsForm({}: Props) {
+export default function ProjectsForm() {
   const [images, setImages] = useState<string[]>([]);
   function handleImagesUpload(e: React.ChangeEvent<HTMLInputElement>) {
     setImages([]);

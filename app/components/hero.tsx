@@ -5,9 +5,7 @@ import React from "react";
 import developerImage from "@/public/assets/personal.jpg";
 import Link from "next/link";
 
-type Props = {};
-
-export default function Hero({}: Props) {
+export default function Hero() {
   return (
     <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
       <Circles />

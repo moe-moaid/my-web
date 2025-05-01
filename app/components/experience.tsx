@@ -1,8 +1,7 @@
 import React from 'react'
 import ExpCard from '@/user-components/expCard';
-type Props = {}
 
-export default function Experience({}: Props) {
+export default function Experience() {
 
 
   let experiences = [

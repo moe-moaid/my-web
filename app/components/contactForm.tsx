@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-type Props = {};
 type SocialMedia = {
   name: string | undefined;
   link: string | undefined;
 };
 
-export default function ContactForm({}: Props) {
+export default function ContactForm() {
   const [newSocial, setNewSocial] = useState<SocialMedia[]>([]);
   const [currentValue, setCurrentValue] = useState<SocialMedia>({ name: '', link: ''});
 

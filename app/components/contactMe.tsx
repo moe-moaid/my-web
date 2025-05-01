@@ -1,8 +1,7 @@
 import React from "react";
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
-type Props = {};
 
-export default function ContactMe({}: Props) {
+export default function ContactMe() {
   return (
     <div className="h-screen relative flex flex-col justify-center items-center md:flex-row p-2 md:p-10 max-w-7xl mx-auto">
       <h3 className="absolute top-10 uppercase tracking-[20px] text-gray-500 text-2xl">

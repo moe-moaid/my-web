@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import UserCard from "./UserCard";
 
-type Props = {};
 
-export default function AdminHeader({}: Props) {
+export default function AdminHeader() {
   const [showCard, setShowCard] = useState<boolean>(false);
   return (
     <header className="flex flex-col gap-y-4 md:gap-y-0 md:flex-row justify-between items-center p-2">
