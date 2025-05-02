@@ -30,6 +30,8 @@ export default function SkillsForm() {
       return { ...base, [name]: value };
     });
   }
+  console.log('currentSkill', currentSkill);
+  
   return (
     <div className="flex flex-row gap-x-8 justify-center items-start mt-8">
       <form
@@ -54,6 +56,7 @@ export default function SkillsForm() {
           fullWidth
           text="Update Information"
           onClick={handleAddSkill}
+          disabled={!currentSkill?.name || !currentSkill?.proficiency}
         />
       </form>
       <form
