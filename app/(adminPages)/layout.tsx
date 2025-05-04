@@ -9,7 +9,7 @@ export default function AdminLayout({
 }) {
   return (
     <html lang="en">
-      <body className=" bg-[rgb(36,36,36)]">
+      <body className="bg-[#E4E4E4] ">
         <div>
           <AdminHeader />
           <div className="w-100 justify-center items-center ">{children}</div>
