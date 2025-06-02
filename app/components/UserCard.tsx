@@ -10,7 +10,7 @@ export default function UserCard() {
       initial={{ opacity: 0, scaleY: 0 }}
       animate={{ opacity: 1, scaleY: 1 }}
       transition={{ duration: 0.32, ease: "easeInOut" }}
-      style={{transformOrigin: "top"}}
+      style={{ transformOrigin: "top" }}
       className="flex flex-col gap-y-[24px] items-center rounnded-lg w-[300px] bg-white rounded-2xl py-[48px] absolute top-10 right-2"
     >
       <Image

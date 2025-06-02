@@ -15,13 +15,13 @@ type CurrentSkilType = {
 export default function TechsForm() {
   const [skillImage, setSkillImage] = useState<string>();
   const [skills, setSkills] = useState<SkillsType[] | null>(null);
-  const [currentSkill, setCurrentSkill] = useState<Partial<CurrentSkilType | null>>(null);
+  const [currentSkill, setCurrentSkill] =
+    useState<Partial<CurrentSkilType | null>>(null);
   function handleFormSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = e.target as HTMLFormElement;
     const form = new FormData(data);
     const body = Object.fromEntries(form.entries());
-    
 
     setSkills((prev) => {
       if (!prev)
@@ -42,12 +42,18 @@ export default function TechsForm() {
           },
         ];
       else if (prev && prev.some((skill) => skill.id === currentSkill?.id)) {
-        const skillToChange = prev.find((skill) => skill.id === currentSkill?.id);
+        const skillToChange = prev.find(
+          (skill) => skill.id === currentSkill?.id
+        );
         const newArr = [...prev];
         if (!skillToChange) return prev;
         const indexOfSkill = newArr.indexOf(skillToChange);
         if (indexOfSkill !== -1)
-          newArr[indexOfSkill] = { ...newArr[indexOfSkill], name: body.name as string, logo: body.logo }
+          newArr[indexOfSkill] = {
+            ...newArr[indexOfSkill],
+            name: body.name as string,
+            logo: body.logo,
+          };
 
         return newArr;
       } else return [];
@@ -55,21 +61,23 @@ export default function TechsForm() {
     setCurrentSkill(null);
   }
 
-
   const handleIputChange = (e: any) => {
     const { name, value } = e.target;
     setCurrentSkill({ ...currentSkill, [name]: value });
-  }
+  };
   const handleEditButton = (e: React.MouseEvent, skillId: string) => {
     e.preventDefault();
     const selectedSkill = skills?.find((skill) => skill.id === skillId);
     if (!selectedSkill) return;
 
-    const logo = selectedSkill.logo instanceof File ? URL.createObjectURL(selectedSkill.logo) : selectedSkill.logo;
+    const logo =
+      selectedSkill.logo instanceof File
+        ? URL.createObjectURL(selectedSkill.logo)
+        : selectedSkill.logo;
 
     setCurrentSkill({ id: selectedSkill.id, name: selectedSkill.name, logo });
     setSkillImage(currentSkill?.logo);
-  }
+  };
 
   return (
     <div className="flex flex-row justify-center gap-x-8 mt-8">
@@ -104,7 +112,11 @@ export default function TechsForm() {
               if (!e.target.files) return;
               setSkillImage(URL.createObjectURL(e.target.files[0]));
               if (!currentSkill) return;
-              setCurrentSkill({id: currentSkill?.id, name: currentSkill?.name,  logo: URL.createObjectURL(e.target.files[0]) });
+              setCurrentSkill({
+                id: currentSkill?.id,
+                name: currentSkill?.name,
+                logo: URL.createObjectURL(e.target.files[0]),
+              });
             }}
           />
           {!currentSkill?.logo && (
@@ -123,7 +135,7 @@ export default function TechsForm() {
           )}
           {currentSkill?.logo && (
             <Image
-              src={ currentSkill.logo }
+              src={currentSkill.logo}
               width="57"
               height="52"
               alt="preview Image"
@@ -145,58 +157,60 @@ export default function TechsForm() {
         {skills &&
           skills.map((skill) => {
             return (
-            <div
-              key={skill.id}
-              className="flex flex-row justify-between items-center bg-[#E4E4E4] px-3 rounded-md py-1"
-            >
-              <p>{skill.name}</p>
-              <div className="flex gap-x-2 items-center">
-                {/* Edit Button */}
-                <button
-                  onClick={(e) => { handleEditButton(e, skill.id) }}
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+              <div
+                key={skill.id}
+                className="flex flex-row justify-between items-center bg-[#E4E4E4] px-3 rounded-md py-1"
+              >
+                <p>{skill.name}</p>
+                <div className="flex gap-x-2 items-center">
+                  {/* Edit Button */}
+                  <button
+                    onClick={(e) => {
+                      handleEditButton(e, skill.id);
+                    }}
                   >
-                    <path
-                      d="M2.29163 13.36L6.81463 18.116L0.499634 20L2.29163 13.36ZM12.7046 2.41204L17.2266 7.16704L7.26563 17.64L2.74263 12.886L12.7046 2.41204ZM16.1416 0.348037L19.1176 3.47704C19.9246 4.32504 19.2036 5.09004 19.2036 5.09004L17.6826 6.69004L13.1586 1.93304L14.6796 0.334037L14.6996 0.315037C14.8186 0.203037 15.4746 -0.352963 16.1416 0.348037Z"
-                      fill="#2E8CFA"
-                    />
-                  </svg>
-                </button>
-                {/* Delete Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSkills((prev) => {
-                      if (!prev) return null;
-                      const tempArr = prev?.filter((item) => {
-                        return item.id !== skill.id;
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.29163 13.36L6.81463 18.116L0.499634 20L2.29163 13.36ZM12.7046 2.41204L17.2266 7.16704L7.26563 17.64L2.74263 12.886L12.7046 2.41204ZM16.1416 0.348037L19.1176 3.47704C19.9246 4.32504 19.2036 5.09004 19.2036 5.09004L17.6826 6.69004L13.1586 1.93304L14.6796 0.334037L14.6996 0.315037C14.8186 0.203037 15.4746 -0.352963 16.1416 0.348037Z"
+                        fill="#2E8CFA"
+                      />
+                    </svg>
+                  </button>
+                  {/* Delete Button */}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSkills((prev) => {
+                        if (!prev) return null;
+                        const tempArr = prev?.filter((item) => {
+                          return item.id !== skill.id;
+                        });
+                        return tempArr;
                       });
-                      return tempArr;
-                    });
-                  }}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                    }}
                   >
-                    <path
-                      d="M8 0.5C3.82143 0.5 0.5 3.82143 0.5 8C0.5 12.1786 3.82143 15.5 8 15.5C12.1786 15.5 15.5 12.1786 15.5 8C15.5 3.82143 12.1786 0.5 8 0.5ZM10.8929 11.75L8 8.85714L5.10714 11.75L4.25 10.8929L7.14286 8L4.25 5.10714L5.10714 4.25L8 7.14286L10.8929 4.25L11.75 5.10714L8.85714 8L11.75 10.8929L10.8929 11.75Z"
-                      fill="#FC3434"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 0.5C3.82143 0.5 0.5 3.82143 0.5 8C0.5 12.1786 3.82143 15.5 8 15.5C12.1786 15.5 15.5 12.1786 15.5 8C15.5 3.82143 12.1786 0.5 8 0.5ZM10.8929 11.75L8 8.85714L5.10714 11.75L4.25 10.8929L7.14286 8L4.25 5.10714L5.10714 4.25L8 7.14286L10.8929 4.25L11.75 5.10714L8.85714 8L11.75 10.8929L10.8929 11.75Z"
+                        fill="#FC3434"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-          )
+            );
           })}
       </form>
     </div>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import UserCard from "./UserCard";
 
-
 export default function AdminHeader() {
   const [showCard, setShowCard] = useState<boolean>(false);
   return (
@@ -10,8 +9,12 @@ export default function AdminHeader() {
         <p className="font-bold leading-[10px]">Moe</p>
         <p className="font-bold">Portfolio</p>
       </div>
-      <input className="bg-[#D9D9D9] w-full sm:w-1/3 px-4 py-1 rounded-full outline-none text-[#3b82f6] font-medium tracking-wider" type="text" placeholder="Search anything..." />
-      { showCard && <UserCard />}
+      <input
+        className="bg-[#D9D9D9] w-full sm:w-1/3 px-4 py-1 rounded-full outline-none text-[#3b82f6] font-medium tracking-wider"
+        type="text"
+        placeholder="Search anything..."
+      />
+      {showCard && <UserCard />}
       <button onClick={() => setShowCard(!showCard)}>
         <svg
           width="31"

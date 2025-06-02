@@ -13,31 +13,27 @@ type Props = {
 };
 
 const componentMap: Record<string, React.FC<Props>> = {
-    AboutForm,
-    ContactForm,
-    ExperienceForm,
-    HeroForm,
-    ProjectsForm,
-    SkillsForm,
-    TechsForm,
-}
+  AboutForm,
+  ContactForm,
+  ExperienceForm,
+  HeroForm,
+  ProjectsForm,
+  SkillsForm,
+  TechsForm,
+};
 
 export default function RenderForms({ menueStatus }: Props) {
-    let activeTab = menueStatus.find((item, id) => {
-        return item.status === true;
-    });
-    
-    return (
+  let activeTab = menueStatus.find((item, id) => {
+    return item.status === true;
+  });
 
-<div className="flex-1 flex-row justify-center">
-            <h1>
-                {
-                    activeTab ? (
-                        React.createElement(componentMap[activeTab.component])
-                    ) : (
-                        ""
-                )}
-            </h1>
-        </div>
-    )
+  return (
+    <div className="flex-1 flex-row justify-center">
+      <h1>
+        {activeTab
+          ? React.createElement(componentMap[activeTab.component])
+          : ""}
+      </h1>
+    </div>
+  );
 }

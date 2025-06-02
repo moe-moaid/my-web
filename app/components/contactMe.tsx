@@ -13,28 +13,49 @@ export default function ContactMe() {
           <span className="underline decoration-[#00C6CF]/70">{`Let's Talk`}</span>
         </h4>
         <div className="flex flex-col mx-auto px-5 space-y-5 items-start">
-            <div className="flex justify-center items-center space-x-5">
-                <PhoneIcon className="text-[#00C6CF] h-7 animate-pulse"/>
-                <p>+923045296525</p>
-            </div>
-            <div className="flex justify-center items-center space-x-5">
-                <EnvelopeIcon className="text-[#00C6CF] h-7 animate-pulse"/>
-                <a href="mailto:mohammadmoaid@gmail.com">mohammadmoaid@gmail.com</a>
-            </div>
-            <div className="flex justify-center items-center space-x-5">
-                <MapPinIcon className="text-[#00C6CF] h-7 animate-pulse"/>
-                <p className="capitalize">islamabad, pakistan</p>
-            </div>
+          <div className="flex justify-center items-center space-x-5">
+            <PhoneIcon className="text-[#00C6CF] h-7 animate-pulse" />
+            <p>+923045296525</p>
+          </div>
+          <div className="flex justify-center items-center space-x-5">
+            <EnvelopeIcon className="text-[#00C6CF] h-7 animate-pulse" />
+            <a href="mailto:mohammadmoaid@gmail.com">mohammadmoaid@gmail.com</a>
+          </div>
+          <div className="flex justify-center items-center space-x-5">
+            <MapPinIcon className="text-[#00C6CF] h-7 animate-pulse" />
+            <p className="capitalize">islamabad, pakistan</p>
+          </div>
         </div>
         <form className="flex flex-col space-y-2 w-fit mx-auto px-5" action="">
-            {/* <div className="flex space-x-2 w-screen"> */}
-            <div className="grid grid-cols-2 gap-x-2">
-                <input className="contactInput" type="text" placeholder="Name" required/>
-                <input className="contactInput" type="email" placeholder="Email" required/>
-            </div>
-            <input className="contactInput" type="text" placeholder="Subject" required/>
-            <textarea className="contactInput resize-none" placeholder="Your Message" required/>
-            <button className="bg-[#00C6CF] py-5 px-10 rounded-md text-white font-bold">Submit</button>
+          {/* <div className="flex space-x-2 w-screen"> */}
+          <div className="grid grid-cols-2 gap-x-2">
+            <input
+              className="contactInput"
+              type="text"
+              placeholder="Name"
+              required
+            />
+            <input
+              className="contactInput"
+              type="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <input
+            className="contactInput"
+            type="text"
+            placeholder="Subject"
+            required
+          />
+          <textarea
+            className="contactInput resize-none"
+            placeholder="Your Message"
+            required
+          />
+          <button className="bg-[#00C6CF] py-5 px-10 rounded-md text-white font-bold">
+            Submit
+          </button>
         </form>
       </div>
     </div>

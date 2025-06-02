@@ -1,8 +1,11 @@
-import React from 'react'
-import { SVGIconProps } from '@/typings';
+import React from "react";
+import { SVGIconProps } from "@/typings";
 
 export const SVGIcon: React.FC<SVGIconProps> = ({ svg }) => {
   return (
-    <div className='w-10 h-10 rounded-full my-2 md:my-0' dangerouslySetInnerHTML={{__html:svg}}/>
-  )
-}
+    <div
+      className="w-10 h-10 rounded-full my-2 md:my-0"
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  );
+};

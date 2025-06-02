@@ -3,7 +3,6 @@ import Input from "./Input";
 import Button from "./Button";
 import Image from "next/image";
 
-
 const Image_Placeholders: ReactNode = (
   <svg
     width="57"

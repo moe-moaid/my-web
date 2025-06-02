@@ -3,7 +3,5 @@ import Image from "next/image";
 import React from "react";
 
 export default function Projects() {
-  return (
-         <Project/>         
-  );
+  return <Project />;
 }

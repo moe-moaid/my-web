@@ -30,15 +30,17 @@ export default function SkillsForm() {
       return { ...base, [name]: value };
     });
   }
-  console.log('currentSkill', currentSkill);
-  
+  console.log("currentSkill", currentSkill);
+
   return (
     <div className="flex flex-row gap-x-8 justify-center items-start mt-8">
       <form
         action=""
         className="flex flex-col gap-y-4 w-1/3 items-center bg-white rounded-3xl px-8 py-4 max-h-fit"
       >
-        <h1 className="text-center my-4 font-medium">Add a Skill to the List</h1>
+        <h1 className="text-center my-4 font-medium">
+          Add a Skill to the List
+        </h1>
         <Input
           name="name"
           value={currentSkill?.name}
@@ -63,7 +65,9 @@ export default function SkillsForm() {
         action=""
         className="flex flex-col gap-y-4 w-1/3 items-center bg-white rounded-3xl px-8 py-4 max-h-fit"
       >
-        <h1 className="text-center my-4 font-medium">Add a Skill to the List</h1>
+        <h1 className="text-center my-4 font-medium">
+          Add a Skill to the List
+        </h1>
         <div className="flex flex-row gap-x-3 justify-start items-center bg-[#E4E4E4] p-2 rounded-md">
           <p className="border-e-2 border-white pe-3">Next.js</p>
           <p className="">90</p>
