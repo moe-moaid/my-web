@@ -18,7 +18,7 @@ export default function UserCard() {
         src={developerImage}
         width={120}
         height={120}
-        alt="developer image"
+        alt="developer picture"
       />
       <div>
         <p className="text-[20px] font-bold text-center">Moe Moaid F.</p>
